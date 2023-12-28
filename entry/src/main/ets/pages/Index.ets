@@ -1,5 +1,5 @@
 import router from '@ohos.router'
-import { Constants as Const } from "../common/Constants"
+import  Constants  from "../common/Constants"
 import { splashImages } from '../viewmodel/SplashViewModel';
 
 @Entry
@@ -13,9 +13,9 @@ struct Index {
 
   aboutToAppear() {
     let hours = new Date().getHours();
-    if (hours >= Const.MORNING_TIME && hours < Const.EVENING_TIME) {
+    if (hours >= Constants.MORNING_TIME && hours < Constants.EVENING_TIME) {
       this.splashData = splashImages.day;
-    } else if (hours >= Const.EVENING_TIME && hours <= Const.NIGHT_TIME) {
+    } else if (hours >= Constants.EVENING_TIME && hours <= Constants.NIGHT_TIME) {
       this.splashData = splashImages.dusk;
     } else {
       this.splashData = splashImages.night
@@ -53,7 +53,7 @@ struct Index {
               Image(item)
                 .width("100%")
                 .height("100%")
-                .objectFit(ImageFit.Contain)
+                .objectFit(ImageFit.Fill)
             })
           }
           .loop(true)

@@ -40,8 +40,8 @@ struct MainPage {
       Tabs({ barPosition: BarPosition.End, index: 0, controller: this.controller }) {
         TabContent() {
           Main()
-        }.tabBar(this.TabBuilder(0))
-
+        }
+        .tabBar(this.TabBuilder(0))
         TabContent() {
           Trade()
         }.tabBar(this.TabBuilder(1))

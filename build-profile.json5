@@ -1,6 +1,20 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/hudezhi/.ohos/config/auto_debug_Harmony2_com.example.harmony2_160086000125694677.cer",
+          "storePassword": "0000001B632507A17D99D42BE7FFE164355DF20ED972C389974D98C025ACCF7484E9A0E38992FE4BF13677",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B6FF2B6FDD3DF072DC1CE318881154E69DC0DC874F61062ABAB67647C44423DC8BB695960A761F4",
+          "profile": "/Users/hudezhi/.ohos/config/auto_debug_Harmony2_com.example.harmony2_160086000125694677.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/hudezhi/.ohos/config/auto_debug_Harmony2_com.example.harmony2_160086000125694677.p12"
+        }
+      }
+    ],
     "compileSdkVersion": 9,
     "compatibleSdkVersion": 9,
     "products": [
