@@ -30,13 +30,14 @@ export function httpRequest(url: string, method: http.RequestMethod, params?: st
       if (resultJson.errorCode == 0) {
         serverData.data = resultJson.data;
       } else {
-        serverData.errorMsg = `网络请求失败${value.responseCode}`;
+        serverData.errorMsg = `${resultJson.errorMsg}`;
       }
     } else {
       serverData.errorMsg = "网络请求失败，稍后重试！";
     }
     return serverData;
-  }).catch(() => {
+  }).catch((errMsg) => {
+    serverData.errorMsg = errMsg;
     return serverData;
   });
 

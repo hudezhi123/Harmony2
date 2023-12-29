@@ -1,5 +1,7 @@
 import router from '@ohos.router'
+import prompt from '@ohos.promptAction'
 import LoginAndRegisterViewModel from '../viewmodel/LoginAndRegisterViewModel'
+import ResponseResult from '../api/ResponseResult'
 
 @Extend(TextInput) function inputStyle() {
   .placeholderColor('#99182431')
@@ -24,6 +26,7 @@ import LoginAndRegisterViewModel from '../viewmodel/LoginAndRegisterViewModel'
   .backgroundColor('#33182431')
 }
 
+
 @Entry
 @Component
 struct LoginAndRegisterPage {
@@ -31,19 +34,23 @@ struct LoginAndRegisterPage {
   @State password: string = ""
 
   login() {
+    if (this.userName === '' || this.password === '') {
+      prompt.showToast({ message: "输入不能为空" });
+      return
+    }
     LoginAndRegisterViewModel.login(this.userName, this.password).then((response) => {
       this.toMainPage();
     }).catch((errorMsg) => {
-
+      prompt.showToast({ message: errorMsg, bottom: "100" })
     })
   }
 
   toMainPage() {
-    router.pushUrl({url:"pages/MainPage"})
+    router.pushUrl({ url: "pages/MainPage" })
   }
 
   toRegister() {
-
+    router.pushUrl({ url: "pages/RegisterPage" })
   }
 
   forgetPassword() {
@@ -56,7 +63,7 @@ struct LoginAndRegisterPage {
         .fontSize(36)
         .fontColor("#000000")
         .fontWeight(FontWeight.Bold)
-        .margin({ top: "20%" })
+        .margin({ top: "50" })
 
       Column() {
         Text("账号").tagStyle()
