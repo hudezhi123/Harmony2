@@ -39,6 +39,7 @@ struct LoginAndRegisterPage {
       return
     }
     LoginAndRegisterViewModel.register(this.userName, this.password, this.repassword).then((response) => {
+      prompt.showToast({ message: "注册成功！", bottom: "100" })
       this.toMainPage();
     }).catch((errorMsg) => {
       prompt.showToast({ message: errorMsg, bottom: "100" })
@@ -46,7 +47,7 @@ struct LoginAndRegisterPage {
   }
 
   toMainPage() {
-    router.pushUrl({ url: "pages/MainPage" })
+    router.replaceUrl({ url: "pages/MainPage" })
   }
 
   build() {

@@ -7,7 +7,8 @@ export class ApiService {
    * 首页文章列表
    * GET
    */
-  static readonly HOME_ARTICLE_LIST = "/article/list/0/json";
+  static readonly HOME_ARTICLE_LIST = "/article/list/";
+  static readonly JSON = "/json";
 
   /**
    * 首页banner

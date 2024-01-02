@@ -38,7 +38,8 @@ struct LoginAndRegisterPage {
       prompt.showToast({ message: "输入不能为空" });
       return
     }
-    LoginAndRegisterViewModel.login(this.userName, this.password).then((response) => {
+    LoginAndRegisterViewModel.login(this.userName, this.password).then((userData) => {
+      prompt.showToast({ message: "登录成功！", bottom: 100 })
       this.toMainPage();
     }).catch((errorMsg) => {
       prompt.showToast({ message: errorMsg, bottom: "100" })
@@ -46,7 +47,7 @@ struct LoginAndRegisterPage {
   }
 
   toMainPage() {
-    router.pushUrl({ url: "pages/MainPage" })
+    router.replaceUrl({ url: "pages/MainPage" })
   }
 
   toRegister() {

@@ -5,13 +5,13 @@
         "name": "default",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "/Users/hudezhi/.ohos/config/auto_debug_Harmony2_com.example.harmony2_160086000125694677.cer",
-          "storePassword": "0000001B632507A17D99D42BE7FFE164355DF20ED972C389974D98C025ACCF7484E9A0E38992FE4BF13677",
+          "certpath": "/Users/xiongqianqian/.ohos/config/auto_debug_Harmony2_com.example.harmony2_160086000125694677.cer",
+          "storePassword": "0000001AFAF6D48BFCA0BA2FD711C5D768559057D4A8AC953A91A4723CB6D81BAE1DD959D6C4B5BFDC89",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001B6FF2B6FDD3DF072DC1CE318881154E69DC0DC874F61062ABAB67647C44423DC8BB695960A761F4",
-          "profile": "/Users/hudezhi/.ohos/config/auto_debug_Harmony2_com.example.harmony2_160086000125694677.p7b",
+          "keyPassword": "0000001A546BD3A9D9C13593A353EA83756144D5E8CDFB94AFB168F8FC4173D3F23120BC92481699BDCC",
+          "profile": "/Users/xiongqianqian/.ohos/config/auto_debug_Harmony2_com.example.harmony2_160086000125694677.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "/Users/hudezhi/.ohos/config/auto_debug_Harmony2_com.example.harmony2_160086000125694677.p12"
+          "storeFile": "/Users/xiongqianqian/.ohos/config/auto_debug_Harmony2_com.example.harmony2_160086000125694677.p12"
         }
       }
     ],

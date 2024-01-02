@@ -1,7 +1,9 @@
 @Component
 export struct Main {
 
+  aboutToAppear(){
 
+  }
 
   build() {
     Column(){
