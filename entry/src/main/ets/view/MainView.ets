@@ -23,7 +23,7 @@ export struct MainView {
 
   build() {
     Column() {
-      Banners({bannerList:this.bannerList})
+      Banners({ bannerList: $this.bannerList })
       List({ space: 10 }) {
         ForEach(this.articleList, (bean: ArticleBean) => {
           ListItem() {
@@ -35,7 +35,7 @@ export struct MainView {
       .width("100%")
       .height("100%")
     }
-    .backgroundColor("#ffcfcfcf")
+    .backgroundColor("#f9f9f9")
     .width("100%")
     .height("100%")
   }
