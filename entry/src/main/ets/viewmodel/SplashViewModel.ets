@@ -1,23 +1,25 @@
+import { BannerInfo } from './BannerInfo'
+
 interface ISplash {
-  day: Resource[];
-  dusk: Resource[];
-  night: Resource[];
+  day: BannerInfo[];
+  dusk: BannerInfo[];
+  night: BannerInfo[];
 }
 
-export const splashImages:ISplash = {
+export const splashImages: ISplash = {
   day: [
-  $r('app.media.splash1'),
-  $r('app.media.splash2'),
-  $r('app.media.splash3')
+    new BannerInfo($r('app.media.splash1')),
+    new BannerInfo($r('app.media.splash2')),
+    new BannerInfo($r('app.media.splash3'))
   ],
   dusk: [
-  $r('app.media.splash4'),
-  $r('app.media.splash5'),
-  $r('app.media.splash6')
+    new BannerInfo($r('app.media.splash4')),
+    new BannerInfo($r('app.media.splash5')),
+    new BannerInfo($r('app.media.splash6'))
   ],
   night: [
-  $r('app.media.splash7'),
-  $r('app.media.splash8'),
-  $r('app.media.splash9')
+    new BannerInfo($r('app.media.splash7')),
+    new BannerInfo($r('app.media.splash8')),
+    new BannerInfo($r('app.media.splash9'))
   ]
 }

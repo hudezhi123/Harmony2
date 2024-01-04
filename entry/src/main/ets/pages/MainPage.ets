@@ -1,4 +1,4 @@
-import { Main } from '../view/MainView';
+import { MainView } from '../view/MainView';
 import { Mine } from '../view/MineView';
 import { Orders } from '../view/OrdersView';
 import { Trade } from '../view/TradeView';
@@ -39,7 +39,7 @@ struct MainPage {
     }) {
       Tabs({ barPosition: BarPosition.End, index: 0, controller: this.controller }) {
         TabContent() {
-          Main()
+          MainView()
         }
         .tabBar(this.TabBuilder(0))
         TabContent() {

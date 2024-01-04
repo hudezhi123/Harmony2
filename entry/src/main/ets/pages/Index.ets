@@ -1,5 +1,7 @@
 import router from '@ohos.router'
-import  Constants  from "../common/Constants"
+import Constants from "../common/Constants"
+import { Banners } from '../view/Banners';
+import { BannerInfo } from '../viewmodel/BannerInfo';
 import { splashImages } from '../viewmodel/SplashViewModel';
 
 @Entry
@@ -7,7 +9,7 @@ import { splashImages } from '../viewmodel/SplashViewModel';
 struct Index {
   private swiperController: SwiperController = new SwiperController();
   @State isShowGuide: boolean = true;
-  private splashData: Resource[] = [];
+  private splashData: BannerInfo[] = [];
   @State countDown: number = 5
   private timer: number = -1;
 
@@ -30,7 +32,6 @@ struct Index {
     this.timer = setInterval(() => {
       this.countDown--;
       if (this.countDown === 0) {
-        this.clearTiming();
         this.jumpToMainPage();
       }
     }, 1000)
@@ -48,23 +49,7 @@ struct Index {
     Column() {
       Stack() {
         if (this.isShowGuide) {
-          Swiper(this.swiperController) {
-            ForEach(this.splashData, (item: Resource) => {
-              Image(item)
-                .width("100%")
-                .height("100%")
-                .objectFit(ImageFit.Fill)
-            })
-          }
-          .loop(true)
-          .interval(2000)
-          .autoPlay(true)
-          .indicatorStyle({
-            bottom: "100vp",
-            color: "#99ffffff"
-          })
-          .curve(Curve.Linear)
-
+          Banners({bannerList:this.splashData})
           Text() {
             Span("跳过")
             Span(`${this.countDown}`)
@@ -75,13 +60,13 @@ struct Index {
           .fontSize(16)
           .borderRadius(10)
           .backgroundColor("#4d182431")
-          .onClick(()=>{
+          .onClick(() => {
             this.jumpToMainPage()
           })
           .textAlign(TextAlign.Center)
           .position({
-            x:"78%",
-            y:20
+            x: "78%",
+            y: 40
           })
         } else {
           Column() {
@@ -112,6 +97,7 @@ struct Index {
   }
 
   jumpToMainPage() {
-    router.pushUrl({ url: "pages/MainPage" })
+    this.clearTiming()
+    router.replaceUrl({ url: "pages/LoginPage" })
   }
 }

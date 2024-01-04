@@ -4,7 +4,7 @@ import Constants, { ContentType } from '../common/Constants'
 import { ApiService } from './ApiService';
 
 export function httpRequestGet(url: string): Promise<ResponseResult> {
-  let requestOptions = getRequestOptions(http.RequestMethod.POST)
+  let requestOptions = getRequestOptions(http.RequestMethod.GET)
   return httpRequest(url, requestOptions)
 }
 
@@ -31,8 +31,7 @@ export function registerRequest(url: string, username: string, password: string,
 
 export function getArticleList(url: string, page: number) {
   url = `${url}${ApiService.HOME_ARTICLE_LIST}${page}${ApiService.JSON}`;
-  let requestOptions = getRequestOptions(http.RequestMethod.POST)
-  requestOptions.extraData = {}
+  let requestOptions = getRequestOptions(http.RequestMethod.GET)
   return httpRequest(url, requestOptions)
 }
 
