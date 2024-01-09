@@ -1,4 +1,5 @@
 import { TitleBar } from '../view/TitleBar'
+import { TodoStateTitle } from '../view/TodoStateTitle'
 
 
 @Entry
@@ -6,10 +7,7 @@ import { TitleBar } from '../view/TitleBar'
 export struct TodoPage {
   build() {
     Column() {
-      TitleBar({ titleName: "待办事项", rightActionType: TitleBar.ACTION_NONE })
-
-
-
+      TodoStateTitle()
 
       TitleBar({ titleName: "待办事项", rightActionType: TitleBar.ACTION_NONE })
 
@@ -23,43 +21,7 @@ export struct TodoPage {
 
     }
     .backgroundColor("#f9f9f9")
-  }
-
-  /**
-   * 状态
-   */
-  @Builder TodoStatusBar(){
-
-  }
-
-  /**
-   * 状态
-   */
-  @Builder TodoStatusBar() {
-
-  }
-
-  /**
-   * 待办事项条目
-   */
-  @Builder TodoItem() {
-
-  }
-
-  @Builder TodoMenu() {
-
-  }
-
-}
-
-  /**
-   * 待办事项条目
-   */
-  @Builder TodoItem(){
-
-  }
-
-  @Builder TodoMenu(){
-
+    .width("100%")
+    .height("100%")
   }
 }
