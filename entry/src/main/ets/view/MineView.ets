@@ -25,14 +25,13 @@ export struct Mine {
         Column() {
           Text("安之若素")
           Text(`id: ${1234567}`)
-            .margin({top:4})
+            .margin({ top: 4 })
             .fontColor("#999999")
         }
         .alignItems(HorizontalAlign.Start)
         .justifyContent(FlexAlign.Center)
-
         .height(50)
-        .margin({ left: 10 })
+        .margin({ left: 20 })
       }
       .width("100%")
       .height(80)
@@ -43,9 +42,12 @@ export struct Mine {
         ForEach(this.functionList, (functionBean: FunctionBean) => {
           ListItem() {
             CommonItem({ functionBean: functionBean })
-          }
+          }.onClick(()=>{
+
+          })
         }, (functionBean) => JSON.stringify(functionBean))
-      }.margin({ top: 10 })
+      }.margin({ top: 10, bottom: 10 })
+      .padding({ bottom: 10 })
 
       Blank()
 

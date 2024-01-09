@@ -21,19 +21,20 @@ export struct CommonItem {
           .margin({ left: 10 })
         Blank()
         Image($r('app.media.ic_dark_right_arrow'))
-          .width(20)
-          .height(20)
+          .width(15)
+          .height(15)
           .margin({ right: 10 })
       }
-      .height("100%")
+      .height(49)
       .width("100%")
 
       Divider()
         .height(1)
-        .padding({ left: 10, right: 10 })
+        .backgroundColor("#f1f1f1")
+        .margin({ left: 6, right: 6 })
     }
     .justifyContent(FlexAlign.SpaceBetween)
-    .height(40)
+    .height(50)
     .backgroundColor(Color.White)
     .borderRadius(6)
   }

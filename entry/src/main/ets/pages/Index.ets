@@ -11,7 +11,7 @@ struct Index {
   @State isShowGuide: boolean = true;
   private splashData: BannerInfo[] = [];
   @State countDown: number = 5
-  private timer: number = -1;
+  private timer: number = 1;
 
   aboutToAppear() {
     let hours = new Date().getHours();
@@ -32,9 +32,14 @@ struct Index {
     this.timer = setInterval(() => {
       this.countDown--;
       if (this.countDown === 0) {
-        this.jumpToMainPage();
+        this.clearTiming()
+        this.jumpToLoginPage();
       }
     }, 1000)
+  }
+
+  aboutToDisappear(){
+    this.clearTiming()
   }
 
   clearTiming() {
@@ -49,7 +54,7 @@ struct Index {
     Column() {
       Stack() {
         if (this.isShowGuide) {
-          Banners({bannerList:this.splashData})
+          Banners({ bannerList: this.splashData })
           Text() {
             Span("跳过")
             Span(`${this.countDown}`)
@@ -61,7 +66,7 @@ struct Index {
           .borderRadius(10)
           .backgroundColor("#4d182431")
           .onClick(() => {
-            this.jumpToMainPage()
+            this.jumpToLoginPage()
           })
           .textAlign(TextAlign.Center)
           .position({
@@ -96,8 +101,8 @@ struct Index {
 
   }
 
-  jumpToMainPage() {
-    this.clearTiming()
+  jumpToLoginPage() {
+    this.clearTiming();
     router.replaceUrl({ url: "pages/LoginPage" })
   }
 }

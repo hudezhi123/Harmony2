@@ -42,6 +42,7 @@ struct MainPage {
           MainView()
         }
         .tabBar(this.TabBuilder(0))
+
         TabContent() {
           Trade()
         }.tabBar(this.TabBuilder(1))
