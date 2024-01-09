@@ -1,5 +1,3 @@
-import { TodoItem } from '../view/TodoItem'
-import { TodoStateTitle } from '../view/TodoStateTitle'
 import { TitleBar } from '../view/TitleBar'
 
 
@@ -19,6 +17,14 @@ export struct TodoPage {
       .padding(10)
 
       TitleBar({ titleName: "待办事项", rightActionType: TitleBar.ACTION_NONE })
+
+      Row() {
+        Button("添加您的目标")
+          .backgroundColor(Color.Orange)
+          .width("100%")
+      }
+      .width("100%")
+      .padding(10)
 
     }
     .backgroundColor("#f9f9f9")
