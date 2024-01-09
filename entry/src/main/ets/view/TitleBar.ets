@@ -1,4 +1,4 @@
-import Brightness from '@system.brightness'
+
 import router from '@ohos.router'
 
 @Preview
