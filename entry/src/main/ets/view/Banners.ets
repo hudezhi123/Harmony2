@@ -3,7 +3,7 @@ import { BannerInfo } from '../viewmodel/BannerInfo';
 @Component
 export struct Banners {
   private swiperController: SwiperController = new SwiperController();
-  @Link bannerList: Array<BannerInfo>;
+  bannerList: Array<BannerInfo>;
 
   build() {
     Column() {

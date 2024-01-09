@@ -23,7 +23,7 @@ export struct MainView {
 
   build() {
     Column() {
-      Banners({ bannerList: $this.bannerList })
+      Banners({ bannerList: this.bannerList })
       List({ space: 10 }) {
         ForEach(this.articleList, (bean: ArticleBean) => {
           ListItem() {

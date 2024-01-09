@@ -2,7 +2,7 @@ import { TaskStateInfo } from '../viewmodel/TaskStateInfo';
 
 @Preview
 @Component
-struct TodoStateTitle {
+export struct TodoStateTitle {
   @State taskStateInfo: TaskStateInfo = new TaskStateInfo(3, 5);
 
   build() {
