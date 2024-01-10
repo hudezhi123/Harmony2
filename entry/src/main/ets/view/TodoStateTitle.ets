@@ -1,9 +1,8 @@
 import { TaskStateInfo } from '../viewmodel/TaskStateInfo';
 
-@Preview
 @Component
 export struct TodoStateTitle {
-  @State taskStateInfo: TaskStateInfo = new TaskStateInfo(3, 5);
+  @Consume taskStateInfo: TaskStateInfo;
 
   build() {
     Row({ space: 10 }) {
@@ -28,7 +27,8 @@ export struct TodoStateTitle {
     }
     .borderRadius(10)
     .backgroundColor(Color.White)
-    .margin({ left: 10, right: 10, top: 16, bottom: 16 })
+    .margin({ left: 10, right: 10, top: 16})
     .padding(12)
+    .shadow({radius: 6, color: '#1F000000', offsetX: 2, offsetY: 4})
   }
 }

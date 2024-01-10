@@ -1,27 +1,29 @@
 import { TitleBar } from '../view/TitleBar'
+import { TodoItem } from '../view/TodoItem'
+import { TodoMenuView } from '../view/TodoMenuView'
 import { TodoStateTitle } from '../view/TodoStateTitle'
-
+import { TodoTaskList } from '../view/TodoTaskList'
+import { TaskStateInfo } from '../viewmodel/TaskStateInfo'
+import { TodoTask } from '../viewmodel/TodoTask'
 
 @Entry
 @Component
-export struct TodoPage {
+struct TodoPage {
+  @Provide taskStateInfo: TaskStateInfo = new TaskStateInfo()
+
   build() {
     Column() {
-      TodoStateTitle()
-
       TitleBar({ titleName: "待办事项", rightActionType: TitleBar.ACTION_NONE })
-
-      Row() {
-        Button("添加您的目标")
-          .backgroundColor(Color.Orange)
-          .width("100%")
-      }
-      .width("100%")
-      .padding(10)
-
+      TodoStateTitle()
+      TodoTaskList()
+        .layoutWeight(1)
+        .margin({bottom:70})
+      TodoMenuView().margin({ bottom: 30 })
     }
-    .backgroundColor("#f9f9f9")
+    .backgroundColor("#f7f7f7")
     .width("100%")
     .height("100%")
   }
 }
+
+

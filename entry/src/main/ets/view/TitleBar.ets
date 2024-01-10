@@ -1,7 +1,6 @@
 
 import router from '@ohos.router'
 
-@Preview
 @Component
 export struct TitleBar {
   titleName: string = "标题"
