@@ -1,10 +1,11 @@
 import { TitleBar } from '../view/TitleBar'
 import { TodoItem } from '../view/TodoItem'
-import { TodoMenuView } from '../view/TodoMenuView'
 import { TodoStateTitle } from '../view/TodoStateTitle'
 import { TodoTaskList } from '../view/TodoTaskList'
 import { TaskStateInfo } from '../viewmodel/TaskStateInfo'
 import { TodoTask } from '../viewmodel/TodoTask'
+
+
 
 @Entry
 @Component
@@ -18,7 +19,6 @@ struct TodoPage {
       TodoTaskList()
         .layoutWeight(1)
         .margin({bottom:70})
-      TodoMenuView().margin({ bottom: 30 })
     }
     .backgroundColor("#f7f7f7")
     .width("100%")

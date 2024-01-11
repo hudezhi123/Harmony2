@@ -1,5 +1,14 @@
 import { TaskStateInfo } from '../viewmodel/TaskStateInfo';
 import { TodoTask } from '../viewmodel/TodoTask'
+import { TodoViewModel } from '../viewmodel/TodoViewModel';
+
+
+@Extend(TextInput) function todoItemInputStyle() {
+  .fontSize(14)
+  .width(160)
+  .height(30)
+  .padding({ left: 10, top: 0, bottom: 0 })
+}
 
 @Component
 export struct TodoItem {
@@ -9,14 +18,15 @@ export struct TodoItem {
   build() {
     Row() {
       TextInput({ text: this.taskInfo.destName, placeholder: "请输入你的目标" })
-        .fontSize(14)
-        .width(160)
-        .height(30)
-        .padding({ left: 10, top: 0, bottom: 0 })
+        .onChange((value) => {
+          this.taskInfo.destName = value
+        })
+        .todoItemInputStyle()
 
-      Checkbox().select(this.taskInfo.isFinished).margin({ left: 60 })
+      Checkbox()
+        .id(TodoViewModel.TODO_TASK_GROUP_ID).select(this.taskInfo.isFinished).margin({ left: 60 })
         .onChange((isChecked) => {
-          this.taskInfo.isFinished = isChecked
+          this.taskInfo.isFinished = isChecked;
           if (isChecked) {
             this.taskStateInfo.finishedTask++;
           } else {
