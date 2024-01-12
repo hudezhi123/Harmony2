@@ -51,6 +51,9 @@ export struct TodoTaskList {
         .backgroundColor(Color.Red)
         .width(80)
         .height(40)
+        .onClick(() => {
+          this.deleteTasks()
+        })
 
       }
       .height(40)
@@ -60,6 +63,10 @@ export struct TodoTaskList {
       .borderRadius(25)
     }.height("100%")
 
+  }
+
+  deleteTasks() {
+    this.todoTaskList.
   }
 
   addTask() {
