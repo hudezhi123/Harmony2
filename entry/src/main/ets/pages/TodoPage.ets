@@ -3,7 +3,6 @@ import { TodoItem } from '../view/TodoItem'
 import { TodoStateTitle } from '../view/TodoStateTitle'
 import { TodoTaskList } from '../view/TodoTaskList'
 import { TaskStateInfo } from '../viewmodel/TaskStateInfo'
-import { TodoTask } from '../viewmodel/TodoTask'
 
 
 

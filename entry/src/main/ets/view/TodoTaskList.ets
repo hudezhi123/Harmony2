@@ -8,6 +8,25 @@ export struct TodoTaskList {
   @State todoTaskList: Array<TodoTask> = []
   @Consume taskStateInfo: TaskStateInfo;
   chosenTasks: number[] = []
+  @State isSelectAll: boolean = false
+
+  @Builder DeleteItemAction(index: number) {
+    Button() {
+      Image($r('app.media.ic_delete'))
+        .fillColor(Color.White)
+        .width(20)
+    }
+    .width(40)
+    .height(40)
+    .type(ButtonType.Circle)
+    .backgroundColor(Color.Red)
+    .margin(6)
+    .onClick(() => {
+      this.todoTaskList.splice(index, 1)
+      this.taskStateInfo.totalTask = this.todoTaskList.length
+      this.taskStateInfo.finishedTask = 0
+    })
+  }
 
   build() {
     Column() {
@@ -23,11 +42,12 @@ export struct TodoTaskList {
       .padding(10)
 
       List({ space: 10 }) {
-        ForEach(this.todoTaskList, (taskInfo) => {
+        ForEach(this.todoTaskList, (taskInfo, index) => {
           ListItem() {
-            TodoItem({ taskInfo })
+            TodoItem({ taskInfo:taskInfo })
           }
           .margin({ left: 10, right: 10 })
+          .swipeAction({ end: this.DeleteItemAction(index), start: this.DeleteItemAction(index) })
         }, (taskInfo) => JSON.stringify(taskInfo))
       }.layoutWeight(1)
 
@@ -37,6 +57,12 @@ export struct TodoTaskList {
             .fontColor(Color.White)
           CheckboxGroup()
             .id(TodoViewModel.TODO_TASK_GROUP_ID)
+            .selectAll(this.isSelectAll)
+            .onChange((event) => {
+              if (event.status === SelectStatus.All) {
+                this.isSelectAll = true
+              }
+            })
         }
         .height(40)
         .width(90)
@@ -66,11 +92,21 @@ export struct TodoTaskList {
   }
 
   deleteTasks() {
-    this.todoTaskList.
+    let tasks: TodoTask[] = []
+    this.todoTaskList.map((task) => {
+      if (!task.isFinished) {
+        tasks.push(task)
+      }
+    })
+    this.todoTaskList = tasks
+    this.taskStateInfo.totalTask = this.todoTaskList.length
+    this.taskStateInfo.finishedTask = 0
+    this.isSelectAll = false
   }
 
   addTask() {
     this.todoTaskList.push(new TodoTask())
     this.taskStateInfo.totalTask = this.todoTaskList.length
+    this.isSelectAll = false
   }
 }

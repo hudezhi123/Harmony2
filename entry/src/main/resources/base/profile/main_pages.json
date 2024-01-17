@@ -3,6 +3,11 @@
     "pages/Index",
     "pages/MainPage",
     "pages/LoginPage",
-    "pages/RegisterPage"
+    "pages/RegisterPage",
+    "pages/TodoPage",
+    "pages/MyVideoPage",
+    "pages/HealthyLifePage",
+    "pages/AddBillPage",
+    "pages/NotePage"
   ]
 }

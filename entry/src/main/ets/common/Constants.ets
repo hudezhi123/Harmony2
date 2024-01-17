@@ -13,9 +13,9 @@ export default class Constants {
    * Http request success status code.
    */
   static readonly HTTP_CODE_200: number = 200;
-
-
   static readonly HTTP_RESPONSE_SUCCESS_CODE: number = 0;
+  static readonly THEME_YELLOW: string = "#ffe100";
+  static readonly THEME_BACKGROUND = "#f9f9f9";
 }
 
 /**

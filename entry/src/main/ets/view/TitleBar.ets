@@ -1,12 +1,12 @@
-
 import router from '@ohos.router'
 
 @Component
 export struct TitleBar {
-  titleName: string = "标题"
-  rightActionType: number = 0
-  rightContent: Resource | string
-  rightCallback: () => {}
+  titleName: string = "标题";
+  rightActionType: number = 0;
+  rightContent: Resource | string;
+  leftCallBack?: () => void
+  rightCallback?: () => void
   static readonly ACTION_NONE: number = 0
   static readonly ACTION_TEXT: number = 1
   static readonly ACTION_IMG: number = 2
@@ -19,7 +19,12 @@ export struct TitleBar {
         .width(24)
         .padding(5)
         .onClick(() => {
-          router.back()
+          if (this.leftCallBack) {
+            this.leftCallBack()
+          } else {
+            router.back()
+          }
+
         })
       Text(this.titleName)
         .fontSize(18)
