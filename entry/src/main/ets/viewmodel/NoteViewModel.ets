@@ -1,3 +1,5 @@
+import TbBill from '../common/rdb/TbBill';
+import { BillInfo } from './bean/BillInfo';
 import { NoteType, NoteTypeInfo } from './bean/NoteTypeInfo';
 
 export class NoteViewModel {
@@ -33,6 +35,13 @@ export class NoteViewModel {
       new NoteTypeInfo(2005, NoteType.DEBT, $r('app.media.icon_todo_mine'), $r('app.media.icon_todo_mine'), "回收"),
       new NoteTypeInfo(2006, NoteType.OTHER, $r('app.media.icon_todo_mine'), $r('app.media.icon_todo_mine'), "其他")
     ]
+  }
+
+  getBillInfoList(callback: Function = () => {
+  }) {
+    let tbBill = new TbBill(() => {
+      tbBill.query(callback)
+    });
   }
 }
 

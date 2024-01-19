@@ -1,5 +1,5 @@
 import { MainView } from '../view/MainView';
-import { Mine } from '../view/MineView';
+import {  MineView } from '../view/MineView';
 import { Orders } from '../view/OrdersView';
 import { Trade } from '../view/TradeView';
 import { BottomTabsList } from '../viewmodel/BottomTabsModel';
@@ -52,7 +52,7 @@ struct MainPage {
         }.tabBar(this.TabBuilder(2))
 
         TabContent() {
-          Mine()
+          MineView()
         }.tabBar(this.TabBuilder(3))
       }
       .barHeight("10%")

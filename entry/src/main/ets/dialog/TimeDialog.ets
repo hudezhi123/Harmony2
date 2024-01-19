@@ -1,5 +1,4 @@
-@Component
-@Preview
+@CustomDialog
 export struct TimeDialog {
   timeResult: TimePickerResult
   dialogTitle: string = "时间选择";
@@ -32,9 +31,8 @@ export struct TimeDialog {
 
       TimePicker()
         .onChange((timeResult) => {
-          this.controller.close()
           this.timeResult = timeResult
-        })
+        }).width("90%")
     }.padding(20)
   }
 }

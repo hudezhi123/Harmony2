@@ -2,10 +2,12 @@ import { FunctionBean } from '../viewmodel/FunctionBean'
 import { CommonItem } from './CommonItem'
 
 import mineViewModel from '../viewmodel/MineViewModel'
+import router from '@ohos.router'
+import Prompt from '@system.prompt'
 
 @Preview
 @Component
-export struct Mine {
+export struct MineView {
   functionList: Array<FunctionBean> = []
 
   aboutToAppear() {
@@ -42,7 +44,12 @@ export struct Mine {
         ForEach(this.functionList, (functionBean: FunctionBean) => {
           ListItem() {
             CommonItem({ functionBean: functionBean })
-          }.onClick(()=>{
+          }.onClick(() => {
+            if (functionBean.pagePath) {
+              router.pushUrl({ url: functionBean.pagePath })
+            } else {
+              Prompt.showToast({ message: "暂未开放！", duration: 500 })
+            }
 
           })
         }, (functionBean) => JSON.stringify(functionBean))

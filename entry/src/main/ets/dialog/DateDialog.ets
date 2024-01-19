@@ -1,5 +1,4 @@
-@Component
-@Preview
+@CustomDialog
 export struct DateDialog {
   dialogTitle: string = "日期选择";
   controller: CustomDialogController;
