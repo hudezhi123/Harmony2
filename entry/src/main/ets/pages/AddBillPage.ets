@@ -20,7 +20,8 @@ struct AddBillPage {
   @State chosenTime: string = ""
   private tbBill = new TbBill(() => {
   });
-  billInfo: BillInfo = new BillInfo()
+  @State billInfo: BillInfo = new BillInfo()
+  private isEdit = false
   timeDialogController: CustomDialogController = new CustomDialogController({
     builder: TimeDialog({
       cancel: () => {
@@ -53,14 +54,23 @@ struct AddBillPage {
   });
 
   aboutToAppear() {
-    systemDateTime.getDate().then((date: Date) => {
-      this.chosenDate = date.getFullYear() + "-" + this.formatDate(date.getMonth() + 1, date.getDate())
-      this.chosenTime = this.formatTime(date.getHours(), date.getMinutes())
-      this.billInfo.time = `${this.chosenDate + " " + this.chosenTime}`
-    }).catch((err) => {
-      console.log(AddBillPage.TAG, err)
-    })
-    this.billInfo.billType = BillInfo.PAY
+    let billId = router.getParams()['billId']
+    if (billId !== -1 && billId) {
+      this.isEdit = true
+      this.queryBillById(billId)
+    } else {
+      this.isEdit = false
+      this.billInfo.billType = BillInfo.PAY
+      systemDateTime.getDate().then((date: Date) => {
+        this.chosenDate = date.getFullYear() + "-" + this.formatDate(date.getMonth() + 1, date.getDate())
+        this.chosenTime = this.formatTime(date.getHours(), date.getMinutes())
+        this.billInfo.time = `${this.chosenDate + " " + this.chosenTime}`
+      }).catch((err) => {
+        console.log(AddBillPage.TAG, err)
+      })
+    }
+
+
   }
 
   formatTime(hour: number, minute: number): string {
@@ -86,6 +96,7 @@ struct AddBillPage {
     Column() {
       TitleBar({
         leftCallBack: () => {
+          router.back()
         },
         titleName: "新建账单"
       })
@@ -144,7 +155,7 @@ struct AddBillPage {
       Divider().width("100%").padding({ left: 20, right: 20 })
       Row() {
         Image($r('app.media.icon_rmb')).width(20).height(20).objectFit(ImageFit.Contain)
-        TextInput()
+        TextInput({ text: `${this.billInfo.amount}` })
           .backgroundColor(Color.White)
           .padding({ left: 4 })
           .fontSize(30)
@@ -160,7 +171,7 @@ struct AddBillPage {
 
       Row() {
         Text("备注：").fontWeight(FontWeight.Medium)
-        TextInput()
+        TextInput({ text: this.billInfo.mark })
           .backgroundColor(Color.White)
           .fontSize(18)
           .padding({ left: 0 })
@@ -188,7 +199,11 @@ struct AddBillPage {
       .margin({ top: 20 })
 
       Button("保存").width(200).height(40).onClick(() => {
-        this.saveBillInfo()
+        if (this.isEdit) {
+          this.updateBillInfo()
+        } else {
+          this.saveBillInfo()
+        }
       }).margin({ bottom: 50 })
     }
   }
@@ -209,7 +224,7 @@ struct AddBillPage {
         .margin({ top: 4 })
     }.onClick(() => {
       this.chosenIndex = index;
-      this.billInfo.noteTypeInfo.noteTypeId = noteType.noteTypeId
+      this.billInfo.noteTypeInfo = noteType
     })
   }
 
@@ -222,14 +237,47 @@ struct AddBillPage {
   }
 
   saveBillInfo() {
+    if (this.billInfo.amount && this.billInfo.noteTypeInfo) {
+      this.tbBill.getRdbStore(() => {
+        this.tbBill.insert(this.billInfo, (ret) => {
+          if (ret) {
+            Prompt.showToast({ message: "保存成功！" })
+            router.back()
+          } else {
+            Prompt.showToast({ message: "保存失败！" })
+          }
+        })
+      })
+    } else {
+      Prompt.showToast({ message: "填写信息", duration: 1000 })
+    }
+
+  }
+
+  updateBillInfo() {
+    this.tbBill.update(this.billInfo, (ret) => {
+      if (ret) {
+        Prompt.showToast({ message: "更新成功！" })
+        router.back()
+      } else {
+        Prompt.showToast({ message: "更新失败！" })
+      }
+    })
+  }
+
+  queryBillById(billId: number) {
     this.tbBill.getRdbStore(() => {
-      this.tbBill.insert(this.billInfo, (ret) => {
-        if (ret) {
-          Prompt.showToast({ message: "保存成功！" })
-          router.back()
-        } else {
-          Prompt.showToast({ message: "保存失败！" })
-        }
+      this.tbBill.queryById(billId, (billInfo: BillInfo) => {
+        this.billInfo = billInfo
+        let noteTypeId = billInfo.noteTypeInfo.noteTypeId
+        let fullTime = billInfo.time.split(" ")
+        this.chosenDate = fullTime[0]
+        this.chosenTime = fullTime[1]
+        this.isCheckedPay = this.billInfo.billType === BillInfo.PAY
+        let list = this.isCheckedPay ? noteViewModel.getPayTypeList() : noteViewModel.getIncomeTypeList()
+        this.chosenIndex = list.findIndex((noteTypeInfo: NoteTypeInfo) => {
+          return noteTypeInfo.noteTypeId === noteTypeId
+        })
       })
     })
   }

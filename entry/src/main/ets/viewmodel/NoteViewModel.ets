@@ -5,6 +5,8 @@ import { NoteType, NoteTypeInfo } from './bean/NoteTypeInfo';
 export class NoteViewModel {
   static readonly PAY = 1;
   static readonly INCOME = 2;
+  private tbBill = new TbBill(() => {
+  });
 
   getPayTypeList(): Array<NoteTypeInfo> {
     return [
@@ -39,12 +41,20 @@ export class NoteViewModel {
 
   getBillInfoList(callback: Function = () => {
   }) {
-    let tbBill = new TbBill(() => {
-      tbBill.query(callback)
-    });
+    this.tbBill.getRdbStore(() => {
+      this.tbBill.query(callback)
+    })
+  }
+
+
+  deleteBillById(billId: number, callback: Function = () => {
+  }) {
+    this.tbBill.getRdbStore(() => {
+      this.tbBill.deleteById(billId, callback)
+    })
+
   }
 }
 
 let noteViewModel = new NoteViewModel();
-
-export default noteViewModel
+export default noteViewModel;

@@ -5,7 +5,7 @@ export class BillInfo {
   static readonly INCOME = 2;
   billId: number; // id
   billType: number = BillInfo.PAY; // 收入 还是 支出
-  amount: number | string = 100; // 金额
+  amount: number | string = 0; // 金额
   mark: string = ""; // 备注
   time: string = ""; // 时间
   address: string = ""; // 地点

@@ -75,7 +75,7 @@ export default class RdbManager {
     }
   }
 
-  delete(predicates: relationalStore.RdbPredicates, bucketValue: relationalStore.ValuesBucket, callback: Function = () => {
+  delete(predicates: relationalStore.RdbPredicates, callback: Function = () => {
   }) {
     if (!callback || typeof callback === 'undefined' || callback === undefined) {
       return;
@@ -107,4 +107,5 @@ export default class RdbManager {
       });
     }
   }
+
 }

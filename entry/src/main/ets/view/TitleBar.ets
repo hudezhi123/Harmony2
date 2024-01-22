@@ -46,9 +46,8 @@ export struct TitleBar {
        }
      }
      .width("100%")
-     .backgroundColor(Color.White)
      .justifyContent(FlexAlign.SpaceBetween)
      .height(48).margin({top:22})
-   }.height(70)
+   }.height(70).backgroundColor(Color.White)
   }
 }

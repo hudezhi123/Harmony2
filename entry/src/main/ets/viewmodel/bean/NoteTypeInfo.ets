@@ -5,7 +5,7 @@ export class NoteTypeInfo {
   selectedIcon: Resource;
   name: string;
 
-  constructor(noteTypeId: number, type: NoteType, unSelectedIcon: Resource, selectedIcon: Resource, name: string) {
+  constructor(noteTypeId: number = 0, type: NoteType = NoteType.OTHER, unSelectedIcon: Resource = undefined, selectedIcon: Resource=undefined, name: string="") {
     this.noteTypeId = noteTypeId;
     this.type = type;
     this.unSelectedIcon = unSelectedIcon;

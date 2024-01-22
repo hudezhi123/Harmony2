@@ -1,5 +1,6 @@
 import relationalStore from '@ohos.data.relationalStore';
 import { BillInfo } from '../../viewmodel/bean/BillInfo';
+import { NoteTypeInfo } from '../../viewmodel/bean/NoteTypeInfo';
 import RdbManager from './RdbManager';
 
 export default class TbBill {
@@ -43,10 +44,15 @@ export default class TbBill {
   }
 
   delete(billInfo: BillInfo, callback: Function) {
-    const valueBucket: relationalStore.ValuesBucket = generateBucket(billInfo);
     let predicates = new relationalStore.RdbPredicates(TbBill.TABLE.tableName);
     predicates.equalTo('billId', billInfo.billId);
-    this.rdbManager.update(predicates, valueBucket, callback);
+    this.rdbManager.delete(predicates, callback);
+  }
+
+  deleteById(billId: number, callback: Function) {
+    let predicates = new relationalStore.RdbPredicates(TbBill.TABLE.tableName);
+    predicates.equalTo('billId', billId);
+    this.rdbManager.delete(predicates, callback);
   }
 
   query(callback: Function = () => {}) {
@@ -60,14 +66,16 @@ export default class TbBill {
         const result: Array<BillInfo> = [];
         for (let i = 0;i < count; i++) {
           let tmp: BillInfo = new BillInfo();
-          tmp.billId = resultSet.getLong(resultSet.getColumnIndex('billId')),
-          tmp.billType = resultSet.getLong(resultSet.getColumnIndex('billType')),
-          tmp.amount = resultSet.getDouble(resultSet.getColumnIndex('amount')),
-          tmp.mark = resultSet.getString(resultSet.getColumnIndex('mark')),
-          tmp.time = resultSet.getString(resultSet.getColumnIndex('time')),
-          tmp.address = resultSet.getString(resultSet.getColumnIndex('address')),
-          tmp.photos = resultSet.getString(resultSet.getColumnIndex('photos')),
-          tmp.noteTypeId = resultSet.getLong(resultSet.getColumnIndex('noteTypeId'))
+          tmp.billId = resultSet.getLong(resultSet.getColumnIndex('billId'));
+          tmp.billType = resultSet.getLong(resultSet.getColumnIndex('billType'));
+          tmp.amount = resultSet.getDouble(resultSet.getColumnIndex('amount'));
+          tmp.mark = resultSet.getString(resultSet.getColumnIndex('mark'));
+          tmp.time = resultSet.getString(resultSet.getColumnIndex('time'));
+          tmp.address = resultSet.getString(resultSet.getColumnIndex('address'));
+          tmp.photos = resultSet.getString(resultSet.getColumnIndex('photos'));
+          tmp.noteTypeInfo = {
+            noteTypeId : resultSet.getLong(resultSet.getColumnIndex('noteTypeId'))
+          } as NoteTypeInfo
           result[i] = tmp;
           resultSet.goToNextRow();
         }
@@ -75,7 +83,34 @@ export default class TbBill {
       }
     });
   }
+
+  queryById(billId:number,callback:Function=()=>{}){
+    let predicates = new relationalStore.RdbPredicates(TbBill.TABLE.tableName);
+    predicates.equalTo('billId',billId).distinct();
+    this.rdbManager.query(predicates,(resultSet:relationalStore.ResultSet)=>{
+      let count: number = resultSet.rowCount;
+      if (count === 0 || typeof count === 'string') {
+        callback(null)
+      }else{
+        resultSet.goToFirstRow();
+        let tmp: BillInfo = new BillInfo();
+        tmp.billId = resultSet.getLong(resultSet.getColumnIndex('billId')),
+        tmp.billType = resultSet.getLong(resultSet.getColumnIndex('billType')),
+        tmp.amount = resultSet.getDouble(resultSet.getColumnIndex('amount')),
+        tmp.mark = resultSet.getString(resultSet.getColumnIndex('mark')),
+        tmp.time = resultSet.getString(resultSet.getColumnIndex('time')),
+        tmp.address = resultSet.getString(resultSet.getColumnIndex('address')),
+        tmp.photos = resultSet.getString(resultSet.getColumnIndex('photos')),
+        tmp.noteTypeInfo = {
+          noteTypeId : resultSet.getLong(resultSet.getColumnIndex('noteTypeId'))
+        } as NoteTypeInfo
+        callback(tmp)
+      }
+    })
+  }
 }
+
+
 /**
  * @param billInfo
  * @returns
@@ -88,7 +123,7 @@ function generateBucket(billInfo: BillInfo): relationalStore.ValuesBucket {
     time: billInfo.time,
     address: billInfo.address,
     photos: billInfo.photos,
-    noteTypeId: billInfo.noteTypeId
+    noteTypeId: billInfo.noteTypeInfo.noteTypeId
   };
 
   return bucket;
