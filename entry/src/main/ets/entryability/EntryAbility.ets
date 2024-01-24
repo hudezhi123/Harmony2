@@ -1,26 +1,32 @@
 import UIAbility from '@ohos.app.ability.UIAbility';
 import hilog from '@ohos.hilog';
 import window from '@ohos.window';
+import display from '@ohos.display';
+import { GlobalContext } from '../util/GlobalContext';
+import PreferencesHandler from '../common/prefer/PreferencesHandler';
+
 
 export default class EntryAbility extends UIAbility {
   onCreate(want, launchParam) {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
+    GlobalContext.getContext().setObject('preferences', PreferencesHandler.instances);
   }
 
   onDestroy() {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
   }
 
-  onWindowStageCreate(windowStage: window.WindowStage) {
+  async onWindowStageCreate(windowStage: window.WindowStage) {
     // Main window is created, set main page for this ability
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
+    let globalDisplay: display.Display = display.getDefaultDisplaySync();
+    GlobalContext.getContext().setObject('globalDisplay', globalDisplay);
+    let preferences = GlobalContext.getContext().getObject('preferences') as PreferencesHandler;
+    await preferences.configure(this.context.getApplicationContext())
 
-    windowStage.loadContent('pages/MainPage', (err, data) => {
+    windowStage.loadContent('pages/ClockPage', (err, data) => {
       if (err.code) {
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
       }
-      hilog.info(0x0000, 'testTag', 'Succeeded in loading the content. Data: %{public}s', JSON.stringify(data) ?? '');
     });
   }
 

@@ -15,7 +15,16 @@ export default class ReminderService{
   }
 
   public addReminder(alarmItem:ReminderItem,callback?:(reminderId:number)=>void){
-    let reminder = this.
+    let reminder = this.initReminder(alarmItem);
+    reminderAgent.publishReminder(reminder,(err,reminderId:number)=>{
+      if(callback!=null){
+        callback(reminderId)
+      }
+    })
+  }
+
+  public deleteReminder(reminderId:number){
+    reminderAgent.cancelReminder(reminderId);
   }
 
   public initReminder(item:ReminderItem):reminderAgent.ReminderRequestAlarm{

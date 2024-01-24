@@ -8,6 +8,8 @@
     "pages/MyVideoPage",
     "pages/HealthyLifePage",
     "pages/AddBillPage",
-    "pages/NotePage"
+    "pages/NotePage",
+    "pages/ClockPage",
+    "pages/AddClockPage"
   ]
 }
