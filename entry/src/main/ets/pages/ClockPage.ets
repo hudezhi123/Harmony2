@@ -3,7 +3,7 @@
 @Component
 export struct ClockPage{
 
-  private clockViewModel:
+  // private clockViewModel:
 
   build(){
 

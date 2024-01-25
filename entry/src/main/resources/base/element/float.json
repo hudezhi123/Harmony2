@@ -3,6 +3,10 @@
     {
       "name": "vp_192",
       "value": "192vp"
+    },
+    {
+      "name": "font_size",
+      "value": "16fp"
     }
   ]
 }
